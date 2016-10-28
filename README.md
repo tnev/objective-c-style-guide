@@ -153,7 +153,8 @@ if (user.isHappy)
 {
     //Do something
 }
-else {
+else 
+{
     //Do something else
 }
 ```
@@ -194,7 +195,7 @@ Block comments should generally be avoided, as code should be as self-documentin
 
 **ALWAYS** comment localized strings in our Localizable.strings files.
 
-```objc
+```
 /* {0} refers to the user's email address */
 "noContacts_Confirm_Title" = "%@ will be invited to join";
 ```
