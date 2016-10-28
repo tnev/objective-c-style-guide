@@ -1,18 +1,20 @@
-# The official raywenderlich.com Objective-C style guide.
+# The official Dynamic Signal Objective-C style guide.
 
-This style guide outlines the coding conventions for raywenderlich.com.
+This style guide outlines the coding conventions for Dynamic Signal's iOS development.
 
 ## Introduction
 
-The reason we made this style guide was so that we could keep the code in our books, tutorials, and starter kits nice and consistent - even though we have many different authors working on the books.
+The reason we made this style guide was so that we could keep the code in our app nice and consistent - even though we have many different programmers working on the app.
 
-This style guide is different from other Objective-C style guides you may see, because the focus is centered on readability for print and the web. Many of the decisions were made with an eye toward conserving space for print, easy legibility, and tutorial writing.
+This style guide should be followed to the best of one's ability when writing objective-c code, however we are always open to changes, additions, and ammendments.
 
 ## Credits
 
 The creation of this style guide was a collaborative effort from various raywenderlich.com team members under the direction of Nicholas Waynik.  The team includes: [Soheil Moayedi Azarpour](https://github.com/moayes), [Ricardo Rendon Cepeda](https://github.com/ricardo-rendoncepeda), [Tony Dahbura](https://github.com/tdahbura), [Colin Eberhardt](https://github.com/ColinEberhardt), [Matt Galloway](https://github.com/mattjgalloway), [Greg Heo](https://github.com/gregheo), [Matthijs Hollemans](https://github.com/hollance), [Christopher LaPollo](https://github.com/elephantronic), [Saul Mora](https://github.com/casademora), [Andy Pereira](https://github.com/macandyp), [Mic Pringle](https://github.com/micpringle), [Pietro Rea](https://github.com/pietrorea), [Cesare Rocchi](https://github.com/funkyboy), [Marin Todorov](https://github.com/icanzilb), [Nicholas Waynik](https://github.com/ndubbs), and [Ray Wenderlich](https://github.com/raywenderlich)
 
 We would like to thank the creators of the [New York Times](https://github.com/NYTimes/objective-c-style-guide) and [Robots & Pencils'](https://github.com/RobotsAndPencils/objective-c-style-guide) Objective-C Style Guides.  These two style guides provided a solid starting point for this guide to be created and based upon.
+
+Changes for use by Dynamic Signal were a collaborative effort between Leo Larrere, Shady El-Yaski, Jason Du and Tyler Neveldine.
 
 ## Background
 
@@ -95,9 +97,9 @@ Use `#pragma mark -` to categorize methods in functional groupings and protocol/
 
 - (void)publicMethod {}
 
-#pragma mark - Private
+#pragma mark - Helper
 
-- (void)privateMethod {}
+- (void)helperMethod {}
 
 #pragma mark - Protocol conformance
 #pragma mark - UITextFieldDelegate
@@ -115,8 +117,26 @@ Use `#pragma mark -` to categorize methods in functional groupings and protocol/
 
 ## Spacing
 
-* Indent using 2 spaces (this conserves space in print and makes line wrapping less likely). Never indent with tabs. Be sure to set this preference in Xcode.
-* Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
+* Indent using tabs.
+* Use one space on either side of any mathematical operators (+, -, /, \*, =)
+* Method braces always open on a new line and close on a new line.
+
+**Preferred:**
+```objc
+- (void)someMethod
+{
+  //Do something
+}
+```
+
+**Not Preferred:**
+```objc
+- (void)someMethod {
+  //Do something
+}
+```
+
+* Other braces (`if`/`else`/`switch`/`while` etc.) open on the same line but close on a new line.
 
 **Preferred:**
 ```objc
@@ -172,6 +192,13 @@ When they are needed, comments should be used to explain **why** a particular pi
 
 Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. *Exception: This does not apply to those comments used to generate documentation.*
 
+**ALWAYS** comment localized strings in our Localizable.strings files.
+
+```objc
+/* {0} refers to the user's email address */
+"noContacts_Confirm_Title" = "%@ will be invited to join";
+```
+
 ## Naming
 
 Apple naming conventions should be adhered to wherever possible, especially those related to [memory management rules](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html) ([NARC](http://stackoverflow.com/a/2865194/340508)).
@@ -190,14 +217,14 @@ UIButton *settingsButton;
 UIButton *setBut;
 ```
 
-A three letter prefix should always be used for class names and constants, however may be omitted for Core Data entity names. For any official raywenderlich.com books, starter kits, or tutorials, the prefix 'RWT' should be used.
+A two letter prefix should always be used for class names and constants, however may be omitted for Core Data entity names. For the Voicestorm app the prefix 'VS' should be used.
 
 Constants should be camel-case with all words capitalized and prefixed by the related class name for clarity.
 
 **Preferred:**
 
 ```objc
-static NSTimeInterval const RWTTutorialViewControllerNavigationFadeAnimationDuration = 0.3;
+static NSTimeInterval const VSTutorialViewControllerNavigationFadeAnimationDuration = 0.3;
 ```
 
 **Not Preferred:**
@@ -289,7 +316,7 @@ Property attributes should be explicitly listed, and will help new programmers w
 
 ```objc
 @property (weak, nonatomic) IBOutlet UIView *containerView;
-@property (strong, nonatomic) NSString *tutorialName;
+@property (copy, nonatomic) NSString *tutorialName;
 ```
 
 **Not Preferred:**
@@ -415,7 +442,7 @@ enum GlobalConstants {
 
 ## Case Statements
 
-Braces are not required for case statements, unless enforced by the complier.  
+Braces are not required for case statements, unless enforced by the compiler.  
 When a case contains more than one line, braces should be added.
 
 ```objc
@@ -511,7 +538,7 @@ if (isAwesome == YES) {} // Never do this.
 if (isAwesome == true) {} // Never do this.
 ```
 
-If the name of a `BOOL` property is expressed as an adjective, the property can omit the “is” prefix but specifies the conventional name for the get accessor, for example:
+If the name of a `BOOL` property is expressed as an adjective, the property can omit the “is” prefix but specify the conventional name for the get accessor, for example:
 
 ```objc
 @property (assign, getter=isEditable) BOOL editable;
@@ -579,7 +606,7 @@ See [Class Constructor Methods](#class-constructor-methods) for link to article 
 
 ## Class Constructor Methods
 
-Where class constructor methods are used, these should always return type of 'instancetype' and never 'id'. This ensures the compiler correctly infers the result type. 
+Where class constructor methods are used, they should always return type 'instancetype' and never 'id'. This ensures the compiler correctly infers the result type. 
 
 ```objc
 @interface Airplane
@@ -689,43 +716,25 @@ This will prevent [possible and sometimes prolific crashes](http://cocoasamurai.
 
 ## Line Breaks
 
-Line breaks are an important topic since this style guide is focused for print and online readability.
-
 For example:
 ```objc
 self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
 ```
-A long line of code like this should be carried on to the second line adhering to this style guide's Spacing section (two spaces).
+A long line of code like this should be carried on to the second line adhering to this style guide's Spacing section (tabs).
 ```objc
 self.productsRequest = [[SKProductsRequest alloc] 
   initWithProductIdentifiers:productIdentifiers];
 ```
 
-
-## Smiley Face
-
-Smiley faces are a very prominent style feature of the raywenderlich.com site!  It is very important to have the correct smile signifying the immense amount of happiness and excitement for the coding topic.  The end square bracket is used because it represents the largest smile able to be captured using ascii art.  A half-hearted smile is represented if an end parenthesis is used, and thus not preferred.
-
-**Preferred:**
-```objc
-:]
-```
-
-**Not Preferred:**
-```objc
-:)
-```  
-
-
 ## Xcode project
 
 The physical files should be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created should be reflected by folders in the filesystem. Code should be grouped not only by type, but also by feature for greater clarity.
 
-When possible, always turn on "Treat Warnings as Errors" in the target's Build Settings and enable as many [additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings) as possible. If you need to ignore a specific warning, use [Clang's pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
+Although not possible due to the project's current state, usually we suggest turning on "Treat Warnings as Errors" in the target's Build Settings and enable as many [additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings) as possible. If you need to ignore a specific warning, use [Clang's pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
 
 # Other Objective-C Style Guides
 
-If ours doesn't fit your tastes, have a look at some other style guides:
+For further reading, have a look at some other style guides and feel free to contribute to this guide via PRs:
 
 * [Robots & Pencils](https://github.com/RobotsAndPencils/objective-c-style-guide)
 * [New York Times](https://github.com/NYTimes/objective-c-style-guide)
