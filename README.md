@@ -140,15 +140,6 @@ Use `#pragma mark -` to categorize methods in functional groupings and protocol/
 
 **Preferred:**
 ```objc
-if (user.isHappy) {
-  //Do something
-} else {
-  //Do something else
-}
-```
-
-**Not Preferred:**
-```objc
 if (user.isHappy)
 {
     //Do something
@@ -156,6 +147,15 @@ if (user.isHappy)
 else 
 {
     //Do something else
+}
+```
+
+**Not Preferred:**
+```objc
+if (user.isHappy) {
+  //Do something
+} else {
+  //Do something else
 }
 ```
 
@@ -447,11 +447,13 @@ Braces are not required for case statements, unless enforced by the compiler.
 When a case contains more than one line, braces should be added.
 
 ```objc
-switch (condition) {
+switch (condition)
+{
   case 1:
     // ...
     break;
-  case 2: {
+  case 2:
+  {
     // ...
     // Multi-line example using braces
     break;
@@ -469,7 +471,8 @@ switch (condition) {
 There are times when the same code can be used for multiple cases, and a fall-through should be used.  A fall-through is the removal of the 'break' statement for a case thus allowing the flow of execution to pass to the next case value.  A fall-through should be commented for coding clarity.
 
 ```objc
-switch (condition) {
+switch (condition)
+{
   case 1:
     // ** fall-through! **
   case 2:
@@ -487,7 +490,8 @@ When using an enumerated type for a switch, 'default' is not needed.   For examp
 ```objc
 RWTLeftMenuTopItemType menuType = RWTLeftMenuTopItemMain;
 
-switch (menuType) {
+switch (menuType)
+{
   case RWTLeftMenuTopItemMain:
     // ...
     break;
@@ -552,7 +556,8 @@ Conditional bodies should always use braces even when a conditional body could b
 
 **Preferred:**
 ```objc
-if (!error) {
+if (!error)
+{
   return success;
 }
 ```
@@ -594,9 +599,10 @@ result = a > b ? x = c > d ? c : d : y;
 Init methods should follow the convention provided by Apple's generated code template.  A return type of 'instancetype' should also be used instead of 'id'.
 
 ```objc
-- (instancetype)init {
-  self = [super init];
-  if (self) {
+- (instancetype)init
+{
+  if (self = [super init])
+  {
     // ...
   }
   return self;
@@ -654,8 +660,10 @@ When coding with conditionals, the left hand margin of the code should be the "g
 **Preferred:**
 
 ```objc
-- (void)someMethod {
-  if (![someOther boolValue]) {
+- (void)someMethod
+{
+  if (![someOther boolValue])
+  {
 	return;
   }
 
@@ -666,8 +674,10 @@ When coding with conditionals, the left hand margin of the code should be the "g
 **Not Preferred:**
 
 ```objc
-- (void)someMethod {
-  if ([someOther boolValue]) {
+- (void)someMethod
+{
+  if ([someOther boolValue])
+  {
     //Do something important
   }
 }
@@ -680,7 +690,8 @@ When methods return an error parameter by reference, switch on the returned valu
 **Preferred:**
 ```objc
 NSError *error;
-if (![self trySomethingWithError:&error]) {
+if (![self trySomethingWithError:&error])
+{
   // Handle Error
 }
 ```
@@ -689,7 +700,8 @@ if (![self trySomethingWithError:&error]) {
 ```objc
 NSError *error;
 [self trySomethingWithError:&error];
-if (error) {
+if (error)
+{
   // Handle Error
 }
 ```
@@ -701,7 +713,8 @@ Some of Apple’s APIs write garbage values to the error parameter (if non-NULL)
 
 Singleton objects should use a thread-safe pattern for creating their shared instance.
 ```objc
-+ (instancetype)sharedInstance {
++ (instancetype)sharedInstance
+{
   static id sharedInstance = nil;
 
   static dispatch_once_t onceToken;
