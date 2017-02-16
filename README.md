@@ -556,7 +556,8 @@ Conditional bodies should always use braces even when a conditional body could b
 
 **Preferred:**
 ```objc
-if (!error) {
+if (!error)
+{
   return success;
 }
 ```
@@ -598,7 +599,8 @@ result = a > b ? x = c > d ? c : d : y;
 Init methods should follow the convention provided by Apple's generated code template.  A return type of 'instancetype' should also be used instead of 'id'.
 
 ```objc
-- (instancetype)init {
+- (instancetype)init
+{
   self = [super init];
   if (self) {
     // ...
@@ -658,8 +660,10 @@ When coding with conditionals, the left hand margin of the code should be the "g
 **Preferred:**
 
 ```objc
-- (void)someMethod {
-  if (![someOther boolValue]) {
+- (void)someMethod
+{
+  if (![someOther boolValue])
+  {
 	return;
   }
 
@@ -670,8 +674,10 @@ When coding with conditionals, the left hand margin of the code should be the "g
 **Not Preferred:**
 
 ```objc
-- (void)someMethod {
-  if ([someOther boolValue]) {
+- (void)someMethod
+{
+  if ([someOther boolValue])
+  {
     //Do something important
   }
 }
@@ -684,7 +690,8 @@ When methods return an error parameter by reference, switch on the returned valu
 **Preferred:**
 ```objc
 NSError *error;
-if (![self trySomethingWithError:&error]) {
+if (![self trySomethingWithError:&error])
+{
   // Handle Error
 }
 ```
@@ -693,7 +700,8 @@ if (![self trySomethingWithError:&error]) {
 ```objc
 NSError *error;
 [self trySomethingWithError:&error];
-if (error) {
+if (error)
+{
   // Handle Error
 }
 ```
@@ -705,7 +713,8 @@ Some of Apple’s APIs write garbage values to the error parameter (if non-NULL)
 
 Singleton objects should use a thread-safe pattern for creating their shared instance.
 ```objc
-+ (instancetype)sharedInstance {
++ (instancetype)sharedInstance
+{
   static id sharedInstance = nil;
 
   static dispatch_once_t onceToken;
