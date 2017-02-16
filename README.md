@@ -447,11 +447,13 @@ Braces are not required for case statements, unless enforced by the compiler.
 When a case contains more than one line, braces should be added.
 
 ```objc
-switch (condition) {
+switch (condition)
+{
   case 1:
     // ...
     break;
-  case 2: {
+  case 2:
+  {
     // ...
     // Multi-line example using braces
     break;
@@ -469,7 +471,8 @@ switch (condition) {
 There are times when the same code can be used for multiple cases, and a fall-through should be used.  A fall-through is the removal of the 'break' statement for a case thus allowing the flow of execution to pass to the next case value.  A fall-through should be commented for coding clarity.
 
 ```objc
-switch (condition) {
+switch (condition)
+{
   case 1:
     // ** fall-through! **
   case 2:
@@ -487,7 +490,8 @@ When using an enumerated type for a switch, 'default' is not needed.   For examp
 ```objc
 RWTLeftMenuTopItemType menuType = RWTLeftMenuTopItemMain;
 
-switch (menuType) {
+switch (menuType)
+{
   case RWTLeftMenuTopItemMain:
     // ...
     break;
