@@ -140,15 +140,6 @@ Use `#pragma mark -` to categorize methods in functional groupings and protocol/
 
 **Preferred:**
 ```objc
-if (user.isHappy) {
-  //Do something
-} else {
-  //Do something else
-}
-```
-
-**Not Preferred:**
-```objc
 if (user.isHappy)
 {
     //Do something
@@ -156,6 +147,15 @@ if (user.isHappy)
 else 
 {
     //Do something else
+}
+```
+
+**Not Preferred:**
+```objc
+if (user.isHappy) {
+  //Do something
+} else {
+  //Do something else
 }
 ```
 
