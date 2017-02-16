@@ -601,8 +601,8 @@ Init methods should follow the convention provided by Apple's generated code tem
 ```objc
 - (instancetype)init
 {
-  self = [super init];
-  if (self) {
+  if (self = [super init])
+  {
     // ...
   }
   return self;
